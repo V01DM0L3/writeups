@@ -47,14 +47,12 @@ find: ‘./var/cache/ldconfig’: Permission denied
 
 As you can see this method can work only for quite small results amount, but what if we have to look around huge found data.
 
-Thats why we can look through results and exclude all errors using operation called **stderr to stdout redirection**.
+Thats why we can look through results and exclude all errors using operation called **stderr redirection**.
 Here is our one liner returning raw password without errors:
 
-`find -size 33c -user bandit7 -group bandit6 -execdir cat {} \; 2>&1 | grep -v 'find: '`
+`find -size 33c -user bandit7 -group bandit6 -execdir cat {} \; 2>/dev/null`
 
-Strange looking `2>&1` is nothing more than just telling to terminal "redirect all results ended with error (and only them) to the next pipeline (in our case `grep` command)" technicaly it's something more complicated but for this task it's everything you need to know
-
-The new part of command: `| grep -v 'find: '` excludes all lines from given input (which we redirected), which have `find: ` pattern inside, and as you can see in results we had before, every error starts with this pattern.
+Strange looking `2>/dev/null` is nothing more than just telling to terminal "Redirect all results ended with error (and only them) to something like a system trash or void. And return only useful no-error data as terminal output". We can do something reverse using `1>/dev/null` in this case we redirtect all good results to the void, we can place any file after `>` it not have to be `/dev/null` you can do something like `2>errors.txt` (but not in here, on OWT warzone, in `/` you have no permissions to create new files)
 
 #### WARNING
 Be aware that you shouldn't use `-execdir` if you don't know what can be outputed, as long as `cat` command is nothing aggresive and in the worst case can spam your terminal with too much output, using `rm` or `mv` commands can cause serious damage to system, especially when you use it from `/` directory 
