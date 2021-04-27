@@ -24,6 +24,6 @@ We also can use one `nc` command for this task, which can be even better, becaus
 
 `nc` stands for netcat, which is something different than telnet, because we can't connect to remote shell as it works in `telnet` (basically ssh is something like secured telnet but it's realy basic explaination).
 
-We generally use nc to send data remotely to given port (that's exactly what we had to do in this task)
+We generally use nc to send or receive data remotely to/from given port (that's exactly what we had to do in this task)
 
 
